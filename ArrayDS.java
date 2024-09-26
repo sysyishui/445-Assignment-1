@@ -236,14 +236,11 @@ public class ArrayDS<T extends Comparable<? super T>> implements SequenceInterfa
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("[");
-        for (int i = 0; i < size; i++) {
-            sb.append(data[i]);
-            if (i < size - 1) {
-                sb.append(", ");
-            }
-        }
-        return sb.append("]").toString();
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < size; i++) {
+        sb.append(data[i]);  // Append elements directly without adding extra formatting
+    }
+    return sb.toString();  // Return the plain string without additional brackets
     }
 
     // CompareTo method with wildcard to allow comparison between different types of ArrayDS
