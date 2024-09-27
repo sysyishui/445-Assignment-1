@@ -198,7 +198,6 @@ public void shuffle(int[] sourcePositions, int[] targetPositions) {
     }
 
     @Override
-    @Override
 public T first() {
     if (isEmpty()) {
         return null;  // Instead of throwing an exception, return null or another default value
