@@ -197,21 +197,16 @@ public void shuffle(int[] sourcePositions, int[] targetPositions) {
         return null; // No predecessor found
     }
 
-    @Override
-public T first() {
-    if (isEmpty()) {
-        return null;  // Instead of throwing an exception, return null or another default value
-    }
-    return data[0];
+ @Override
+    public T first() {
+    return isEmpty() ? null : data[0];
     }
 
-    @Override
+@Override
     public T last() {
-        if (isEmpty()) {
-            throw new EmptySequenceException("The sequence is empty.");
-        }
-        return data[size - 1];
+    return isEmpty() ? null : data[size - 1];
     }
+
 
     @Override
     public int lastOccurrenceOf(T item) {
