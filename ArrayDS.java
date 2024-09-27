@@ -186,11 +186,12 @@ public class ArrayDS<T extends Comparable<? super T>> implements SequenceInterfa
     }
 
     @Override
-    public T first() {
-        if (isEmpty()) {
-            throw new EmptySequenceException("The sequence is empty.");
-        }
-        return data[0];
+    @Override
+public T first() {
+    if (isEmpty()) {
+        return null;  // Instead of throwing an exception, return null or another default value
+    }
+    return data[0];
     }
 
     @Override
