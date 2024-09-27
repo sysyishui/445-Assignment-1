@@ -163,10 +163,9 @@ public class ArrayDS<T extends Comparable<? super T>> implements SequenceInterfa
         }
         return data[index];
     }
-
+    
     @Override
-@Override
-public void shuffle(int[] sourcePositions, int[] targetPositions) {
+    public void shuffle(int[] sourcePositions, int[] targetPositions) {
     if (sourcePositions.length != targetPositions.length) {
         throw new IllegalArgumentException("Source and target arrays must be of the same length.");
     }
