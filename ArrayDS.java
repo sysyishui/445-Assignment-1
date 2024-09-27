@@ -165,28 +165,30 @@ public class ArrayDS<T extends Comparable<? super T>> implements SequenceInterfa
     }
 
     @Override
+@Override
 public void shuffle(int[] sourcePositions, int[] targetPositions) {
     if (sourcePositions.length != targetPositions.length) {
         throw new IllegalArgumentException("Source and target arrays must be of the same length.");
     }
 
-    // Check if any of the source or target positions are out of bounds
+    // Check for out-of-bounds and duplicate target positions
+    boolean[] positionCheck = new boolean[size];
     for (int i = 0; i < sourcePositions.length; i++) {
-        if (sourcePositions[i] < 0 || sourcePositions[i] >= size) {
-            throw new IndexOutOfBoundsException("Source index out of bounds: " + sourcePositions[i]);
+        if (sourcePositions[i] < 0 || sourcePositions[i] >= size || targetPositions[i] < 0 || targetPositions[i] >= size) {
+            throw new IndexOutOfBoundsException("Source or target index out of bounds.");
         }
-        if (targetPositions[i] < 0 || targetPositions[i] >= size) {
-            throw new IndexOutOfBoundsException("Target index out of bounds: " + targetPositions[i]);
+        if (positionCheck[targetPositions[i]]) {
+            throw new IllegalArgumentException("Duplicate target index detected.");
         }
+        positionCheck[targetPositions[i]] = true;
     }
 
-    // Perform the shuffle
-    T[] temp = Arrays.copyOf(data, size);  // Copy current data into a temporary array
+    // Shuffle logic
+    T[] temp = Arrays.copyOf(data, size);
     for (int i = 0; i < sourcePositions.length; i++) {
         data[targetPositions[i]] = temp[sourcePositions[i]];
     }
 }
-
     @Override
     public T predecessor(T item) {
         for (int i = 1; i < size; i++) {
