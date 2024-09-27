@@ -165,15 +165,27 @@ public class ArrayDS<T extends Comparable<? super T>> implements SequenceInterfa
     }
 
     @Override
-    public void shuffle(int[] sourcePositions, int[] targetPositions) {
-        if (sourcePositions.length != targetPositions.length) {
-            throw new IllegalArgumentException("Source and target arrays must be of the same length.");
+public void shuffle(int[] sourcePositions, int[] targetPositions) {
+    if (sourcePositions.length != targetPositions.length) {
+        throw new IllegalArgumentException("Source and target arrays must be of the same length.");
+    }
+
+    // Check if any of the source or target positions are out of bounds
+    for (int i = 0; i < sourcePositions.length; i++) {
+        if (sourcePositions[i] < 0 || sourcePositions[i] >= size) {
+            throw new IndexOutOfBoundsException("Source index out of bounds: " + sourcePositions[i]);
         }
-        T[] temp = Arrays.copyOf(data, size);
-        for (int i = 0; i < sourcePositions.length; i++) {
-            data[targetPositions[i]] = temp[sourcePositions[i]];
+        if (targetPositions[i] < 0 || targetPositions[i] >= size) {
+            throw new IndexOutOfBoundsException("Target index out of bounds: " + targetPositions[i]);
         }
     }
+
+    // Perform the shuffle
+    T[] temp = Arrays.copyOf(data, size);  // Copy current data into a temporary array
+    for (int i = 0; i < sourcePositions.length; i++) {
+        data[targetPositions[i]] = temp[sourcePositions[i]];
+    }
+}
 
     @Override
     public T predecessor(T item) {
